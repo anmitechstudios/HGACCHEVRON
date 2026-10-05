@@ -54,7 +54,7 @@ editing that one config file, not building new pages.
 **Not admin-editable (intentionally code-only):** nav structure, sermons/livestream
 (these come live from YouTube, see below), and anything requiring a code change
 to the page layout itself.
-
+<!-- 
 ### Setting up Supabase
 
 1. Create a free project at [supabase.com](https://supabase.com).
@@ -139,4 +139,4 @@ deployment.
   tiles even though the embed is valid).
 - The app uses Next.js's multi-root-layout pattern: `src/app/(site)/layout.tsx` is
   the public site's root layout, `src/app/admin/layout.tsx` is a separate one for
-  the admin portal — they intentionally don't share a header/footer.
+  the admin portal — they intentionally don't share a header/footer. -->
