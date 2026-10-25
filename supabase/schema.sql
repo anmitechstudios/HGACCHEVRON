@@ -149,7 +149,18 @@ create table if not exists hero_slides (
   primary_cta_href text not null,
   secondary_cta_label text not null,
   secondary_cta_href text not null,
+  background_image_url text,
   order_index int not null default 0
+);
+
+-- Fixed, pre-seeded named slots (one per page's hero banner, plus the 4
+-- homepage gallery-preview tiles) — not a free-form list. The admin can
+-- edit a slot's photo but there's no "add new slot" UI; ids are referenced
+-- directly by page code (see src/lib/content/photos.ts).
+create table if not exists page_photos (
+  id text primary key,
+  label text not null,
+  image_url text
 );
 
 -- ---------------------------------------------------------------------
@@ -164,7 +175,8 @@ begin
     select unnest(array[
       'site_settings', 'diocese_info', 'social_links', 'service_times',
       'leadership', 'giving_accounts', 'events', 'ministries',
-      'history_timeline', 'testimonials', 'faqs', 'gallery_images', 'hero_slides'
+      'history_timeline', 'testimonials', 'faqs', 'gallery_images', 'hero_slides',
+      'page_photos'
     ])
   loop
     execute format('alter table %I enable row level security', t);

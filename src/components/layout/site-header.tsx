@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, ChevronDown } from "lucide-react";
@@ -53,17 +54,18 @@ export function SiteHeader() {
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         transparent
           ? "bg-transparent"
-          : "bg-white/90 backdrop-blur-md border-b border-border shadow-[0_1px_0_0_rgba(0,0,0,0.02)]"
+          : "bg-white/70 backdrop-blur-lg border-b border-border shadow-[0_1px_0_0_rgba(0,0,0,0.02)]"
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <Link
           href="/"
           className={cn(
-            "shrink-0 whitespace-nowrap font-heading text-lg font-semibold tracking-tight",
+            "flex shrink-0 items-center gap-2.5 whitespace-nowrap font-heading text-lg font-semibold tracking-tight",
             transparent ? "text-white" : "text-foreground"
           )}
         >
+          <Image src="/brand/logo.png" alt="" width={40} height={40} className="size-10" priority />
           {SITE_SHORT_NAME}
         </Link>
 
@@ -139,7 +141,10 @@ export function SiteHeader() {
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] overflow-y-auto">
             <SheetHeader>
-              <SheetTitle className="font-heading">{SITE_SHORT_NAME}</SheetTitle>
+              <SheetTitle className="flex items-center gap-2.5 font-heading">
+                <Image src="/brand/logo.png" alt="" width={32} height={32} className="size-8" />
+                {SITE_SHORT_NAME}
+              </SheetTitle>
             </SheetHeader>
             <nav className="flex flex-col gap-1 px-4">
               {NAV_LINKS.map((link) => (

@@ -112,3 +112,22 @@ insert into hero_slides (slug, eyebrow, title, description, primary_cta_label, p
 
 -- Testimonials intentionally left empty: no real quotes were ever available
 -- to seed (see the TODO that lived in data.ts) — add real ones via the admin.
+
+-- Page hero/preview photos — the real photography already uploaded during
+-- the site build. Edit any of these via /admin/page-photos.
+insert into page_photos (id, label, image_url) values
+  ('hero-about', 'About Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/79e853e2-00a1-41f9-ae26-95022c629040.jpg'),
+  ('hero-leadership', 'Leadership Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/240e90bc-263d-489d-bf65-a24bc49a41bb.jpg'),
+  ('hero-diocese', 'Diocese Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/54763bd9-046a-456a-b115-d9fc50f24927.jpg'),
+  ('hero-sermons', 'Sermons Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/0fed4d37-84f7-461d-b863-2350d67ebb34.jpg'),
+  ('hero-watch-live', 'Watch Live Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/255dc9fc-5f8c-4969-b6de-24e119fc53de.jpg'),
+  ('hero-ministries', 'Ministries Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/a7424632-e080-4693-9f64-d2f92d5bd9ab.jpg'),
+  ('hero-events', 'Events Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/d67f6bff-6a4c-4a10-a525-aab9c7f790d1.jpg'),
+  ('hero-giving', 'Giving Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/9534660e-7a41-4427-b8c2-c8706b2d9688.jpg'),
+  ('hero-new-here', 'New Here Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/a49c5f4d-b2fb-4020-b169-c2315309a322.jpg'),
+  ('hero-gallery', 'Gallery Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/624fb593-0992-4677-858e-5fd5330ee1b8.jpg'),
+  ('hero-contact', 'Contact Page Hero', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/2f084f90-8b2f-487b-8683-e978f60874ac.jpg'),
+  ('preview-worship', 'Homepage Gallery Preview: Worship', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/6a9bba56-2484-4001-a2c3-0b8bad887651.jpg'),
+  ('preview-grace-conference', 'Homepage Gallery Preview: Grace Conference', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/57ad1297-22ff-4974-9c03-1acf9430e69a.jpg'),
+  ('preview-grace-voices', 'Homepage Gallery Preview: Grace Voices', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/3bca1f9f-a26c-41fd-9e6d-e45733482cd7.jpg'),
+  ('preview-fellowship', 'Homepage Gallery Preview: Fellowship', 'https://pnzttwqbmsmkhqmqzjom.supabase.co/storage/v1/object/public/site-media/a53317ec-5e3d-4d42-9e9c-12b0a5ca7f5c.jpg');

@@ -32,6 +32,14 @@ export interface ResourceDef {
   fields: FieldDef[];
   orderable: boolean;
   singleton?: boolean;
+  /**
+   * A fixed set of pre-seeded rows tied to specific code locations (e.g. one
+   * row per page's hero photo). Editable like any other list, but the "New"
+   * and per-row "Delete" actions are hidden — adding or removing a row here
+   * wouldn't do anything useful since each row's id is referenced directly
+   * by code, not discovered dynamically.
+   */
+  fixedRows?: boolean;
   titleField: string;
   subtitleField?: string;
 }
@@ -60,6 +68,7 @@ export const RESOURCES: ResourceDef[] = [
         required: true,
       },
       { name: "secondary_cta_href", label: "Secondary button link", type: "text", required: true },
+      { name: "background_image_url", label: "Background Photo", type: "image" },
     ],
   },
   {
@@ -340,6 +349,22 @@ export const RESOURCES: ResourceDef[] = [
         type: "text",
         required: true,
       },
+    ],
+  },
+  {
+    key: "page-photos",
+    table: "page_photos",
+    label: "Page Photos",
+    singularLabel: "Page Photo",
+    description:
+      "Background photos for each page's header banner, and the 4 homepage gallery preview tiles.",
+    orderable: false,
+    fixedRows: true,
+    titleField: "label",
+    subtitleField: "id",
+    fields: [
+      { name: "label", label: "Label", type: "text", required: true },
+      { name: "image_url", label: "Photo", type: "image" },
     ],
   },
 ];

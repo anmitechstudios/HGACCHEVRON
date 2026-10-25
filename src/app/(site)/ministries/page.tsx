@@ -3,7 +3,7 @@ import { PageHero } from "@/components/page-hero";
 import { Container } from "@/components/layout/container";
 import { Stagger } from "@/components/motion/reveal";
 import { MinistryCard } from "@/components/ministry-card";
-import { getMinistries } from "@/lib/content";
+import { getMinistries, getPagePhotos } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Ministries",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function MinistriesPage() {
-  const ministries = await getMinistries();
+  const [ministries, photos] = await Promise.all([getMinistries(), getPagePhotos()]);
 
   return (
     <>
@@ -21,6 +21,7 @@ export default async function MinistriesPage() {
         title="Ministries"
         description="Every member has a place to serve, grow, and belong at HGAC Chevron."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Ministries", href: "/ministries" }]}
+        backgroundImageUrl={photos["hero-ministries"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

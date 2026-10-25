@@ -4,7 +4,7 @@ import { PageHero } from "@/components/page-hero";
 import { Container } from "@/components/layout/container";
 import { SectionHeader } from "@/components/section-header";
 import { Reveal, Stagger } from "@/components/motion/reveal";
-import { getDioceseInfo, getSiteInfo } from "@/lib/content";
+import { getDioceseInfo, getPagePhotos, getSiteInfo } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "The Diocese of Lagos",
@@ -13,7 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function DiocesePage() {
-  const [diocese, site] = await Promise.all([getDioceseInfo(), getSiteInfo()]);
+  const [diocese, site, photos] = await Promise.all([
+    getDioceseInfo(),
+    getSiteInfo(),
+    getPagePhotos(),
+  ]);
 
   return (
     <>
@@ -22,6 +26,7 @@ export default async function DiocesePage() {
         title="The Diocese of Lagos"
         description="Understanding the Anglican Communion structure that HGAC Chevron belongs to."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Diocese", href: "/diocese" }]}
+        backgroundImageUrl={photos["hero-diocese"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

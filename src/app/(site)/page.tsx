@@ -16,6 +16,7 @@ import {
   getGivingAccounts,
   getHeroSlides,
   getLeadership,
+  getPagePhotos,
   getServiceTimes,
   getWeeklyActivities,
 } from "@/lib/content";
@@ -30,6 +31,7 @@ export default async function Home() {
     leaders,
     diocese,
     givingAccounts,
+    photos,
   ] = await Promise.all([
     getHeroSlides(),
     getServiceTimes(),
@@ -39,6 +41,7 @@ export default async function Home() {
     getLeadership(),
     getDioceseInfo(),
     getGivingAccounts(),
+    getPagePhotos(),
   ]);
 
   const mainService = serviceTimes[0];
@@ -52,7 +55,7 @@ export default async function Home() {
       <FlagshipEventsSection events={events} />
       <LeadershipPreviewSection leaders={leaders} />
       <DioceseSection diocese={diocese} />
-      <GalleryPreviewSection />
+      <GalleryPreviewSection photos={photos} />
       <GivingPreviewSection accounts={givingAccounts} />
       <MapSection />
       <NewsletterSection />

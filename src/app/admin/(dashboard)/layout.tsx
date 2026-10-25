@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { LogOut, ExternalLink } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { RESOURCES } from "@/lib/admin/resources";
@@ -20,7 +21,8 @@ export default async function AdminDashboardLayout({
   return (
     <div className="flex min-h-screen bg-muted/30">
       <aside className="hidden w-64 shrink-0 border-r border-border bg-card lg:block">
-        <div className="flex h-16 items-center border-b border-border px-6">
+        <div className="flex h-16 items-center gap-2.5 border-b border-border px-6">
+          <Image src="/brand/logo.png" alt="" width={28} height={28} className="size-7" />
           <Link href="/admin" className="font-heading text-lg font-semibold text-foreground">
             HGAC Admin
           </Link>
@@ -43,8 +45,9 @@ export default async function AdminDashboardLayout({
           <div className="flex items-center gap-4">
             <Link
               href="/admin"
-              className="font-heading text-base font-semibold text-foreground lg:hidden"
+              className="flex items-center gap-2 font-heading text-base font-semibold text-foreground lg:hidden"
             >
+              <Image src="/brand/logo.png" alt="" width={24} height={24} className="size-6" />
               HGAC Admin
             </Link>
             <AdminMobileNav />

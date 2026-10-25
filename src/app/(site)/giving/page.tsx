@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/container";
 import { SectionHeader } from "@/components/section-header";
 import { Reveal, Stagger } from "@/components/motion/reveal";
 import { GivingAccountCard } from "@/components/giving-account-card";
-import { getGivingAccounts } from "@/lib/content";
+import { getGivingAccounts, getPagePhotos } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Giving",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function GivingPage() {
-  const accounts = await getGivingAccounts();
+  const [accounts, photos] = await Promise.all([getGivingAccounts(), getPagePhotos()]);
 
   return (
     <>
@@ -23,6 +23,7 @@ export default async function GivingPage() {
         title="Ways to Give"
         description="“Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.” (2 Corinthians 9:7)"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Giving", href: "/giving" }]}
+        backgroundImageUrl={photos["hero-giving"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

@@ -4,7 +4,7 @@ import { Container } from "@/components/layout/container";
 import { SectionHeader } from "@/components/section-header";
 import { Reveal } from "@/components/motion/reveal";
 import { Timeline } from "@/components/timeline";
-import { getHistoryTimeline, getLeadership, getSiteInfo } from "@/lib/content";
+import { getHistoryTimeline, getLeadership, getPagePhotos, getSiteInfo } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
@@ -13,10 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const [site, timeline, leaders] = await Promise.all([
+  const [site, timeline, leaders, photos] = await Promise.all([
     getSiteInfo(),
     getHistoryTimeline(),
     getLeadership(),
+    getPagePhotos(),
   ]);
   const vicar = leaders.find((l) => l.role === "vicar");
 
@@ -27,6 +28,7 @@ export default async function AboutPage() {
         title="About His Grace Anglican Church, Chevron"
         description="A young parish of the Anglican Diocese of Lagos, planted with a clear vision and a warm welcome."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }]}
+        backgroundImageUrl={photos["hero-about"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getNewHereFaqs, getServiceTimes, getSiteInfo } from "@/lib/content";
+import { getNewHereFaqs, getPagePhotos, getServiceTimes, getSiteInfo } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "New Here",
@@ -43,10 +43,11 @@ const EXPECT_ITEMS = [
 ];
 
 export default async function NewHerePage() {
-  const [faqs, serviceTimes, site] = await Promise.all([
+  const [faqs, serviceTimes, site, photos] = await Promise.all([
     getNewHereFaqs(),
     getServiceTimes(),
     getSiteInfo(),
+    getPagePhotos(),
   ]);
 
   return (
@@ -56,6 +57,7 @@ export default async function NewHerePage() {
         title="New Here?"
         description={`We can't wait to welcome you. Here's what to expect at ${site.name}.`}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "New Here", href: "/new-here" }]}
+        backgroundImageUrl={photos["hero-new-here"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

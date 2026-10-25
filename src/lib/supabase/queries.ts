@@ -1,4 +1,5 @@
-import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public-client";
 import type {
   DioceseInfo,
   EventSummary,
@@ -33,7 +34,7 @@ async function safeQuery<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
 
 export async function getSiteSettingsRow() {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("site_settings")
       .select("*")
@@ -61,7 +62,7 @@ export async function getSiteSettingsRow() {
 
 export async function getDioceseInfoRow(): Promise<DioceseInfo | null> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("diocese_info")
       .select("*")
@@ -83,7 +84,7 @@ export async function getDioceseInfoRow(): Promise<DioceseInfo | null> {
 
 export async function getSocialLinksRows(): Promise<SocialLink[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("social_links")
       .select("*")
@@ -99,7 +100,7 @@ export async function getSocialLinksRows(): Promise<SocialLink[]> {
 
 export async function getServiceTimesRows(): Promise<ServiceTime[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("service_times")
       .select("*")
@@ -117,7 +118,7 @@ export async function getServiceTimesRows(): Promise<ServiceTime[]> {
 
 export async function getMainServiceRow(): Promise<ServiceTime[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("service_times")
       .select("*")
@@ -135,7 +136,7 @@ export async function getMainServiceRow(): Promise<ServiceTime[]> {
 
 export async function getLeadershipRows(): Promise<Leader[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("leadership")
       .select("*")
@@ -154,7 +155,7 @@ export async function getLeadershipRows(): Promise<Leader[]> {
 
 export async function getGivingAccountsRows(): Promise<GivingAccount[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("giving_accounts")
       .select("*")
@@ -171,7 +172,7 @@ export async function getGivingAccountsRows(): Promise<GivingAccount[]> {
 
 export async function getEventsRows(): Promise<EventSummary[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase.from("events").select("*").order("order_index");
     if (error || !data) return [];
     return data.map((r) => ({
@@ -188,7 +189,7 @@ export async function getEventsRows(): Promise<EventSummary[]> {
 
 export async function getMinistriesRows(): Promise<MinistrySummary[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("ministries")
       .select("*")
@@ -206,7 +207,7 @@ export async function getMinistriesRows(): Promise<MinistrySummary[]> {
 
 export async function getHistoryTimelineRows(): Promise<TimelineEvent[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("history_timeline")
       .select("*")
@@ -222,7 +223,7 @@ export async function getHistoryTimelineRows(): Promise<TimelineEvent[]> {
 
 export async function getTestimonialsRows(): Promise<Testimonial[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("testimonials")
       .select("*")
@@ -238,7 +239,7 @@ export async function getTestimonialsRows(): Promise<Testimonial[]> {
 
 export async function getFaqsRows(): Promise<FaqItem[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase.from("faqs").select("*").order("order_index");
     if (error || !data) return [];
     return data.map((r) => ({ question: r.question as string, answer: r.answer as string }));
@@ -247,7 +248,7 @@ export async function getFaqsRows(): Promise<FaqItem[]> {
 
 export async function getGalleryImagesRows(): Promise<GalleryImage[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("gallery_images")
       .select("*")
@@ -264,7 +265,7 @@ export async function getGalleryImagesRows(): Promise<GalleryImage[]> {
 
 export async function getHeroSlidesRows(): Promise<HeroSlide[]> {
   return safeQuery(async () => {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("hero_slides")
       .select("*")
@@ -280,6 +281,21 @@ export async function getHeroSlidesRows(): Promise<HeroSlide[]> {
         label: r.secondary_cta_label as string,
         href: r.secondary_cta_href as string,
       },
+      backgroundImageUrl: (r.background_image_url as string) ?? undefined,
     }));
   }, []);
+}
+
+/** Named id -> image URL, for page hero banners and the gallery preview tiles. */
+export async function getPagePhotosMap(): Promise<Record<string, string>> {
+  return safeQuery(async () => {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase.from("page_photos").select("id, image_url");
+    if (error || !data) return {};
+    const map: Record<string, string> = {};
+    for (const row of data) {
+      if (row.image_url) map[row.id as string] = row.image_url as string;
+    }
+    return map;
+  }, {});
 }

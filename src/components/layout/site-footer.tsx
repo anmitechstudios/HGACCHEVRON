@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import {
   FacebookIcon,
@@ -35,9 +36,12 @@ export async function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="font-heading text-xl font-semibold text-foreground">
-              {site.name}
-            </p>
+            <div className="flex items-center gap-3">
+              <Image src="/brand/logo.png" alt="" width={44} height={44} className="size-11" />
+              <p className="font-heading text-xl font-semibold text-foreground">
+                {site.name}
+              </p>
+            </div>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
               {site.vision}
             </p>

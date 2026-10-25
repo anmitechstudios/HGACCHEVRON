@@ -12,7 +12,7 @@ import {
   InstagramIcon,
   YoutubeIcon,
 } from "@/components/icons/social-icons";
-import { getSiteInfo, getSocialLinks } from "@/lib/content";
+import { getSiteInfo, getSocialLinks, getPagePhotos } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -28,7 +28,11 @@ const SOCIAL_ICONS = {
 } as const;
 
 export default async function ContactPage() {
-  const [site, socialLinks] = await Promise.all([getSiteInfo(), getSocialLinks()]);
+  const [site, socialLinks, photos] = await Promise.all([
+    getSiteInfo(),
+    getSocialLinks(),
+    getPagePhotos(),
+  ]);
 
   return (
     <>
@@ -37,6 +41,7 @@ export default async function ContactPage() {
         title="Contact Us"
         description="We'd love to hear from you: reach out with questions, prayer requests, or just to say hello."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact", href: "/contact" }]}
+        backgroundImageUrl={photos["hero-contact"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

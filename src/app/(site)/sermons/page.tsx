@@ -3,7 +3,7 @@ import { PageHero } from "@/components/page-hero";
 import { Container } from "@/components/layout/container";
 import { LatestSermonSection } from "@/components/sections/latest-sermon-section";
 import { SermonsBrowser } from "@/components/sermons-browser";
-import { getFeaturedSermon, getRecentSermons } from "@/lib/content";
+import { getFeaturedSermon, getPagePhotos, getRecentSermons } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Sermons",
@@ -12,9 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default async function SermonsPage() {
-  const [featured, recent] = await Promise.all([
+  const [featured, recent, photos] = await Promise.all([
     getFeaturedSermon(),
     getRecentSermons(),
+    getPagePhotos(),
   ]);
 
   return (
@@ -24,6 +25,7 @@ export default async function SermonsPage() {
         title="Sermons"
         description="Catch up on the Word ministered at HGAC Chevron: search, filter, and watch without leaving the site."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Sermons", href: "/sermons" }]}
+        backgroundImageUrl={photos["hero-sermons"]}
       />
 
       <LatestSermonSection sermon={featured} />

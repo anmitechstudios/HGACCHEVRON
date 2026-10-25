@@ -4,7 +4,7 @@ import { Container } from "@/components/layout/container";
 import { SectionHeader } from "@/components/section-header";
 import { Stagger, Reveal } from "@/components/motion/reveal";
 import { LeaderCard } from "@/components/leader-card";
-import { getDioceseInfo, getLeadership } from "@/lib/content";
+import { getDioceseInfo, getLeadership, getPagePhotos } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Leadership",
@@ -13,7 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function LeadershipPage() {
-  const [leaders, diocese] = await Promise.all([getLeadership(), getDioceseInfo()]);
+  const [leaders, diocese, photos] = await Promise.all([
+    getLeadership(),
+    getDioceseInfo(),
+    getPagePhotos(),
+  ]);
 
   return (
     <>
@@ -22,6 +26,7 @@ export default async function LeadershipPage() {
         title="Shepherding the Flock at Chevron"
         description="Called and commissioned by the Anglican Diocese of Lagos to lead this parish."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Leadership", href: "/leadership" }]}
+        backgroundImageUrl={photos["hero-leadership"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

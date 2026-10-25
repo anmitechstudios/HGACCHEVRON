@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/section-header";
 import { Stagger } from "@/components/motion/reveal";
 import { EventCard } from "@/components/event-card";
 import { EventsRsvpForm } from "@/components/events-rsvp-form";
-import { getEvents } from "@/lib/content";
+import { getEvents, getPagePhotos } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsPage() {
-  const events = await getEvents();
+  const [events, photos] = await Promise.all([getEvents(), getPagePhotos()]);
 
   // Event schema without startDate/endDate: exact dates aren't published yet
   // (see the notice below) and Schema.org markup shouldn't assert dates we
@@ -50,6 +50,7 @@ export default async function EventsPage() {
         title="Events"
         description="From weekly gatherings to our flagship annual conference, here's what's on at HGAC Chevron."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Events", href: "/events" }]}
+        backgroundImageUrl={photos["hero-events"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

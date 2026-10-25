@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Clock, PlayCircle } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Reveal, Stagger } from "@/components/motion/reveal";
@@ -9,7 +10,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { FacebookPageEmbed } from "@/components/facebook-page-embed";
 import { SermonCard } from "@/components/sermon-card";
-import { getServiceTimes, getSocialLinks, getRecentSermons } from "@/lib/content";
+import { getServiceTimes, getSocialLinks, getRecentSermons, getPagePhotos } from "@/lib/content";
 import { getLiveEmbedUrl } from "@/lib/youtube";
 import { YoutubeIcon, FacebookIcon } from "@/components/icons/social-icons";
 
@@ -20,10 +21,11 @@ export const metadata: Metadata = {
 };
 
 export default async function WatchLivePage() {
-  const [serviceTimes, socialLinks, recentSermons] = await Promise.all([
+  const [serviceTimes, socialLinks, recentSermons, photos] = await Promise.all([
     getServiceTimes(),
     getSocialLinks(),
     getRecentSermons(),
+    getPagePhotos(),
   ]);
   const mainService = serviceTimes[0];
   const facebookLink = socialLinks.find((l) => l.platform === "facebook");
@@ -34,8 +36,14 @@ export default async function WatchLivePage() {
     <>
       <section className="relative overflow-hidden bg-[#111418] pb-20 pt-36 sm:pb-24 sm:pt-44">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#161b21] via-[#12151a] to-[#0c0e11]" />
-          <div className="absolute left-1/2 top-[-20%] h-[70%] w-[60%] -translate-x-1/2 rounded-full bg-sky-500/20 blur-[130px]" />
+          <Image
+            src={photos["hero-watch-live"]}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-[center_20%]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e11] via-[#0c0e11]/75 to-[#0c0e11]/50" />
         </div>
         <Container className="relative">
           <Breadcrumbs

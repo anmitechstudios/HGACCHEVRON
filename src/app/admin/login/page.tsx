@@ -1,4 +1,5 @@
-import { AlertCircle, Lock } from "lucide-react";
+import Image from "next/image";
+import { AlertCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -18,9 +19,8 @@ export default async function AdminLoginPage({
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/40 px-4">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-sm">
-        <div className="flex size-11 items-center justify-center rounded-2xl bg-sky-50 text-sky-700">
-          <Lock className="size-5" />
-        </div>
+        <Image src="/brand/logo.png" alt="" width={56} height={56} className="size-14" />
+
         <h1 className="mt-5 font-heading text-2xl font-semibold text-foreground">
           Admin Login
         </h1>

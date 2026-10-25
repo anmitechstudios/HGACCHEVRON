@@ -71,14 +71,16 @@ export function ResourceRow({
           >
             <Pencil className="size-4" />
           </Link>
-          <button
-            type="button"
-            onClick={handleDelete}
-            className="flex size-8 items-center justify-center rounded-md text-muted-foreground hover:bg-red-50 hover:text-destructive"
-            aria-label={`Delete ${title}`}
-          >
-            <Trash2 className="size-4" />
-          </button>
+          {!resource.fixedRows && (
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="flex size-8 items-center justify-center rounded-md text-muted-foreground hover:bg-red-50 hover:text-destructive"
+              aria-label={`Delete ${title}`}
+            >
+              <Trash2 className="size-4" />
+            </button>
+          )}
         </div>
       )}
     </div>

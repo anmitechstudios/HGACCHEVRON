@@ -11,6 +11,7 @@
 import * as data from "./data";
 import * as db from "@/lib/supabase/queries";
 import { fetchRecentSermons } from "@/lib/youtube";
+import { PAGE_PHOTOS_FALLBACK } from "./photos";
 import type {
   DioceseInfo,
   EventSummary,
@@ -126,4 +127,14 @@ export async function getGalleryImages(): Promise<GalleryImage[]> {
 export async function getHeroSlides(): Promise<HeroSlide[]> {
   const rows = await db.getHeroSlidesRows();
   return rows.length > 0 ? rows : data.HERO_SLIDES;
+}
+
+/**
+ * Named id -> photo URL (page hero banners + homepage gallery preview
+ * tiles). Merges per-slot rather than all-or-nothing: any id not yet edited
+ * in /admin/page-photos still falls back to a real photo instead of none.
+ */
+export async function getPagePhotos(): Promise<Record<string, string>> {
+  const dbMap = await db.getPagePhotosMap();
+  return { ...PAGE_PHOTOS_FALLBACK, ...dbMap };
 }

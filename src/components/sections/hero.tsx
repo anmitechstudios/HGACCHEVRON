@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -62,10 +63,11 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
   }, [emblaApi, onSelect]);
 
   const variant = BACKGROUND_VARIANTS[selected % BACKGROUND_VARIANTS.length];
+  const activeSlide = slides[selected];
 
   return (
     <section className="relative isolate flex h-screen items-center overflow-hidden bg-[#111418]">
-      {/* Abstract atmosphere, changes with the active slide. */}
+      {/* Real photography when a slide has one, abstract atmosphere otherwise. */}
       <div className="absolute inset-0">
         <AnimatePresence mode="sync">
           <motion.div
@@ -76,9 +78,26 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
             transition={{ duration: 1.2, ease: "easeInOut" }}
             className="absolute inset-0"
           >
-            <div className={cn("absolute inset-0 bg-gradient-to-b", variant.gradient)} />
-            <div className={cn("absolute rounded-full blur-[140px]", variant.blobA)} />
-            <div className={cn("absolute rounded-full blur-[160px]", variant.blobB)} />
+            {activeSlide?.backgroundImageUrl ? (
+              <>
+                <Image
+                  src={activeSlide.backgroundImageUrl}
+                  alt=""
+                  fill
+                  priority={selected === 0}
+                  sizes="100vw"
+                  className="object-cover object-[center_20%]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e11] via-[#0c0e11]/70 to-[#0c0e11]/30" />
+                <div className={cn("absolute rounded-full blur-[140px] opacity-60", variant.blobA)} />
+              </>
+            ) : (
+              <>
+                <div className={cn("absolute inset-0 bg-gradient-to-b", variant.gradient)} />
+                <div className={cn("absolute rounded-full blur-[140px]", variant.blobA)} />
+                <div className={cn("absolute rounded-full blur-[160px]", variant.blobB)} />
+              </>
+            )}
           </motion.div>
         </AnimatePresence>
         <div

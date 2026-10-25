@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Container } from "@/components/layout/container";
 import { GalleryGrid } from "@/components/gallery-grid";
-import { getGalleryImages } from "@/lib/content";
+import { getGalleryImages, getPagePhotos } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function GalleryPage() {
-  const images = await getGalleryImages();
+  const [images, photos] = await Promise.all([getGalleryImages(), getPagePhotos()]);
 
   return (
     <>
@@ -20,6 +20,7 @@ export default async function GalleryPage() {
         title="Gallery"
         description="A look at life at HGAC Chevron: worship, fellowship, and everything in between."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }]}
+        backgroundImageUrl={photos["hero-gallery"]}
       />
 
       <section className="bg-background py-24 sm:py-32">

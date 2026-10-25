@@ -50,13 +50,15 @@ export default async function ResourceIndexPage({
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">{resource.description}</p>
         </div>
-        <Link
-          href={`/admin/${resourceKey}/new`}
-          className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-        >
-          <Plus className="size-4" />
-          New
-        </Link>
+        {!resource.fixedRows && (
+          <Link
+            href={`/admin/${resourceKey}/new`}
+            className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          >
+            <Plus className="size-4" />
+            New
+          </Link>
+        )}
       </div>
 
       <div className="mt-8 divide-y divide-border rounded-2xl border border-border bg-card">
@@ -71,6 +73,10 @@ export default async function ResourceIndexPage({
               isLast={i === rows.length - 1}
             />
           ))
+        ) : resource.fixedRows ? (
+          <p className="p-8 text-center text-sm text-muted-foreground">
+            No rows found — re-run the seed for this table.
+          </p>
         ) : (
           <p className="p-8 text-center text-sm text-muted-foreground">
             No {resource.label.toLowerCase()} yet. Click &ldquo;New&rdquo; to add one.
