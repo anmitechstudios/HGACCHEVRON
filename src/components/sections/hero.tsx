@@ -88,7 +88,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
                   sizes="100vw"
                   className="object-cover object-[center_20%]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e11] via-[#0c0e11]/70 to-[#0c0e11]/30" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0c0e11]/75 via-[#0c0e11]/15 to-[#0c0e11]/80" />
                 <div className={cn("absolute rounded-full blur-[140px] opacity-60", variant.blobA)} />
               </>
             ) : (
