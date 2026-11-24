@@ -1,24 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Anton, Zen_Kaku_Gothic_New } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { CONTACT, SITE_NAME, VISION_STATEMENT } from "@/lib/content/data";
+import { anton, zenKakuGothicNew } from "@/lib/fonts";
 import "@/app/globals.css";
-
-const zenKakuGothicNew = Zen_Kaku_Gothic_New({
-  variable: "--font-zen-kaku",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: "swap",
-});
-
-const anton = Anton({
-  variable: "--font-anton",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
 
 // TODO: set NEXT_PUBLIC_SITE_URL once the production domain is confirmed.
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
