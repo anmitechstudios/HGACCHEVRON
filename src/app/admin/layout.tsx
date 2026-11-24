@@ -1,21 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Anton, Zen_Kaku_Gothic_New } from "next/font/google";
+import { anton, zenKakuGothicNew } from "@/lib/fonts";
 import "@/app/globals.css";
-
-const zenKakuGothicNew = Zen_Kaku_Gothic_New({
-  variable: "--font-zen-kaku",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: "swap",
-});
-
-const anton = Anton({
-  variable: "--font-anton",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: { default: "Admin", template: "%s | HGAC Chevron Admin" },
